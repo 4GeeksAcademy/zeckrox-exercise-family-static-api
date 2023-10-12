@@ -11,25 +11,29 @@ from random import randint
 class FamilyStructure:
     def __init__(self, last_name):
         self.last_name = last_name
-
-        # example list of members
         self._members = []
 
     # read-only: Use this method to generate random members ID's when adding members into the list
     def _generateId(self):
         return randint(0, 99999999)
 
-    def add_member(self, member):
-        # fill this method and update the return
-        pass
+    def add_member(self, first_name, age, lucky_numbers, id=None):
+        self._members.append({
+            "id": id or self._generateId(),
+            "first_name": first_name,
+            "last_name": self.last_name,
+            "age": age,
+            "lucky_numbers": lucky_numbers
+        })
 
     def delete_member(self, id):
-        # fill this method and update the return
+        filtered_member = next( filter(lambda member: (member["id"] == id), self._members), None )
+        self._members.remove(filtered_member)
         pass
 
     def get_member(self, id):
-        # fill this method and update the return
-        pass
+        filtered_member = next( filter(lambda member: (member["id"] == id), self._members), None )
+        return filtered_member
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
